@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, TrendingUp, TrendingDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface PriceData {
@@ -13,66 +13,63 @@ interface PriceData {
 }
 
 const mockPriceData: PriceData[] = [
-    { symbol: "AUSTD", name: "AUD/USD", price: 0.6542, change: 0.0012, changePercent: 0.18 },
-    { symbol: "AUSJPY", name: "AUD/JPY", price: 105.23, change: 0.45, changePercent: 0.43 },
-    { symbol: "AUSEUR", name: "AUD/EUR", price: 0.6145, change: -0.0008, changePercent: -0.13 },
-    { symbol: "AUGBP", name: "AUD/GBP", price: 0.5234, change: 0.0015, changePercent: 0.29 },
+    { symbol: "AUD/USD", name: "Australian Dollar", price: 0.6542, change: 0.0012, changePercent: 0.18 },
+    { symbol: "Course Index", name: "Global Index", price: 2847, change: 125, changePercent: 4.59 },
+    { symbol: "Enrollment", name: "Rate", price: 94.2, change: 2.3, changePercent: 2.51 },
+    { symbol: "Quality Score", name: "Avg Rating", price: 8.7, change: 0.2, changePercent: 2.35 },
 ];
 
 export default function PriceIndexTicker() {
     const [isVisible, setIsVisible] = useState(true);
-    const [scrolling, setScrolling] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolling(window.scrollY > 100);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    const [isPaused, setIsPaused] = useState(false);
 
     if (!isVisible) return null;
 
     return (
-        <div
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                scrolling ? "shadow-lg" : "shadow-md"
-            } bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700/50`}
-        >
-            <div className="max-w-7xl mx-auto px-4 py-2.5">
-                <div className="flex items-center justify-between gap-4">
-                    {/* Ticker Label */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary/95 via-primary to-primary/95 border-b border-secondary/20 shadow-lg backdrop-blur-sm">
+            <div className="max-w-7xl mx-auto px-4 py-2">
+                <div className="flex items-center justify-between gap-3">
+                    {/* Live Badge */}
                     <div className="flex items-center gap-2 min-w-fit">
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-                            <span className="relative flex h-1.5 w-1.5">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-sm">
+                            <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Live</span>
+                            <span className="text-xs font-bold text-emerald-300 uppercase tracking-wide">Live Data</span>
                         </div>
-                        <span className="text-xs font-semibold text-slate-300 uppercase tracking-widest hidden sm:inline">Market Data</span>
                     </div>
 
-                    {/* Scrolling Prices */}
-                    <div className="flex-1 overflow-hidden">
-                        <div className="flex gap-6 animate-scroll">
+                    {/* Scrolling Ticker */}
+                    <div 
+                        className="flex-1 overflow-hidden"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                    >
+                        <div className={`flex gap-4 ${isPaused ? "" : "animate-scroll"}`}>
                             {[...mockPriceData, ...mockPriceData].map((item, idx) => (
                                 <div
                                     key={`${item.symbol}-${idx}`}
-                                    className="flex items-center gap-3 min-w-max px-3 py-1.5 rounded-lg bg-slate-700/30 hover:bg-slate-700/50 transition-colors"
+                                    className="flex items-center gap-2.5 min-w-max px-3 py-1 rounded-lg bg-white/8 hover:bg-white/12 transition-all duration-200 group cursor-pointer border border-white/10 hover:border-white/20"
                                 >
-                                    <span className="text-xs font-bold text-slate-200 uppercase">{item.symbol}</span>
-                                    <span className="text-sm font-semibold text-white">${item.price.toFixed(4)}</span>
-                                    <span
-                                        className={`text-xs font-semibold ${
-                                            item.change >= 0
-                                                ? "text-emerald-400"
-                                                : "text-red-400"
-                                        }`}
-                                    >
-                                        {item.change >= 0 ? "+" : ""}{item.change.toFixed(4)} ({item.changePercent > 0 ? "+" : ""}{item.changePercent.toFixed(2)}%)
-                                    </span>
+                                    <div className="flex flex-col gap-0.5">
+                                        <span className="text-xs font-semibold text-primary-foreground/90 leading-none">{item.symbol}</span>
+                                        <span className="text-xs text-primary-foreground/60 leading-none">{item.name}</span>
+                                    </div>
+                                    <div className="w-px h-6 bg-white/10" />
+                                    <span className="text-sm font-bold text-primary-foreground font-mono">{typeof item.price === 'number' && item.price > 100 ? item.price.toFixed(0) : item.price.toFixed(2)}</span>
+                                    <div className={`flex items-center gap-1 px-2 py-0.5 rounded-md ${
+                                        item.changePercent >= 0
+                                            ? "bg-emerald-500/25 text-emerald-300"
+                                            : "bg-red-500/25 text-red-300"
+                                    }`}>
+                                        {item.changePercent >= 0 ? (
+                                            <TrendingUp className="w-3 h-3" />
+                                        ) : (
+                                            <TrendingDown className="w-3 h-3" />
+                                        )}
+                                        <span className="text-xs font-semibold">{item.changePercent > 0 ? "+" : ""}{item.changePercent.toFixed(2)}%</span>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -83,12 +80,15 @@ export default function PriceIndexTicker() {
                         onClick={() => setIsVisible(false)}
                         variant="ghost"
                         size="sm"
-                        className="h-6 w-6 p-0 min-w-fit text-slate-400 hover:text-slate-200 hover:bg-slate-700/30"
+                        className="h-6 w-6 p-0 min-w-fit text-primary-foreground/60 hover:text-primary-foreground hover:bg-white/10 rounded-md"
                     >
                         <X className="h-4 w-4" />
                     </Button>
                 </div>
             </div>
+
+            {/* Bottom gradient accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent" />
 
             <style jsx>{`
                 @keyframes scroll {
@@ -100,10 +100,7 @@ export default function PriceIndexTicker() {
                     }
                 }
                 .animate-scroll {
-                    animation: scroll 30s linear infinite;
-                }
-                .animate-scroll:hover {
-                    animation-play-state: paused;
+                    animation: scroll 40s linear infinite;
                 }
             `}</style>
         </div>
