@@ -1,5 +1,3 @@
-"use client"
-
 import type { Metadata } from "next"
 import CourseSelection from "@/components/course-selection"
 import { FAQSection } from "@/components/shared/FAQSection"
