@@ -1,130 +1,180 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, ShieldCheck, TrendingUp, Eye } from "lucide-react"
+import { ArrowRight, ShieldCheck, TrendingUp, Eye, ChevronDown } from "lucide-react"
+
+const stats = [
+  { value: "25,000+", label: "Students Guided" },
+  { value: "12+", label: "Courses Analysed" },
+  { value: "73%", label: "RTO Fail Rate Exposed" },
+  { value: "100%", label: "Editorially Independent" },
+]
+
+const features = [
+  {
+    icon: <Eye className="w-4 h-4 text-secondary" />,
+    title: "Price Transparency",
+    desc: "Hidden fees surfaced. True costs revealed.",
+  },
+  {
+    icon: <ShieldCheck className="w-4 h-4 text-secondary" />,
+    title: "Compliance Intelligence",
+    desc: "ASQA regulatory signals tracked in real time.",
+  },
+  {
+    icon: <TrendingUp className="w-4 h-4 text-secondary" />,
+    title: "Market Analysis",
+    desc: "Live market-mean pricing and risk profiling.",
+  },
+]
 
 export default function HomeHero() {
   return (
     <section
-      className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(212 100% 8%) 60%, hsl(212 100% 5%) 100%)",
-      }}
+      className="relative flex flex-col justify-between overflow-hidden"
+      style={{ minHeight: "100svh" }}
+      aria-labelledby="hero-heading"
     >
-      {/* Hero background image overlay */}
+      {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-        style={{ backgroundImage: "url('/hero-bg.jpg')" }}
-        aria-hidden="true"
-      />
-
-      {/* Grid texture overlay */}
-      <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0"
         style={{
-          backgroundImage:
-            "linear-gradient(hsl(var(--secondary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--secondary)) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+          background:
+            "hsl(212 100% 7%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Gold accent bar top */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-secondary" aria-hidden="true" />
+      {/* Subtle dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: "radial-gradient(hsl(var(--secondary)) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        {/* Alert badge */}
-        <div className="inline-flex items-center gap-2 bg-secondary/15 border border-secondary/30 rounded-full px-4 py-2 mb-8">
-          <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" aria-hidden="true" />
-          <span className="text-secondary text-sm font-semibold tracking-wide uppercase">
-            95% of RTOs hide their pricing — we expose the real costs
-          </span>
-        </div>
+      {/* Gold accent bar on left — visual anchor */}
+      <div
+        className="absolute left-0 top-[17vh] bottom-[17vh] w-[3px] bg-secondary/60 hidden lg:block"
+        aria-hidden="true"
+      />
 
-        <div className="max-w-4xl">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance mb-6">
-            Australia&apos;s Independent{" "}
-            <span
-              className="text-secondary"
-              style={{ textShadow: "0 0 40px rgba(201,162,39,0.4)" }}
-            >
-              RTO Comparison
-            </span>{" "}
-            Platform
-          </h1>
+      {/* Top rule */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-secondary" aria-hidden="true" />
 
-          <p className="text-lg sm:text-xl text-white/70 leading-relaxed mb-10 max-w-2xl text-pretty">
-            We analyse, compare, and audit Registered Training Organisations to protect consumers and
-            drive transparency across Australian vocational education. Not an RTO — fully independent.
-          </p>
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col justify-center flex-1 pt-28 pb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 w-full">
 
-          <div className="flex flex-wrap gap-4 mb-16">
-            <Link
-              href="#courses"
-              className="inline-flex items-center gap-2 bg-secondary text-primary font-bold px-8 py-4 rounded-lg text-base hover:bg-secondary/90 transition-colors"
-            >
-              Compare RTOs Now
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="https://cpp41419.com.au/about"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-white/20 text-white font-semibold px-8 py-4 rounded-lg text-base hover:bg-white/10 transition-colors"
-            >
-              About the Platform
-            </Link>
+          {/* Alert strip */}
+          <div className="inline-flex items-center gap-2.5 border border-secondary/25 bg-secondary/8 rounded-full px-4 py-1.5 mb-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse shrink-0" aria-hidden="true" />
+            <span className="text-secondary text-xs font-bold uppercase tracking-wider">
+              95% of RTOs hide their true pricing — we expose it
+            </span>
           </div>
 
-          {/* Trust stats row */}
-          <div className="flex flex-wrap gap-8 sm:gap-12">
-            {[
-              { value: "25K+", label: "Students Guided" },
-              { value: "12+", label: "Courses Analysed" },
-              { value: "95%", label: "Compliance Score" },
-              { value: "100%", label: "Independent" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-3xl font-bold text-secondary">{stat.value}</div>
-                <div className="text-sm text-white/60 mt-0.5">{stat.label}</div>
+          {/* Two-column layout on large screens */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left: heading + CTA */}
+            <div>
+              <h1
+                id="hero-heading"
+                className="text-5xl sm:text-6xl xl:text-7xl font-bold text-white leading-[1.05] text-balance mb-7"
+              >
+                Australia&apos;s{" "}
+                <span className="text-secondary" style={{ textShadow: "0 0 48px rgba(201,162,39,0.35)" }}>
+                  Independent
+                </span>{" "}
+                RTO Comparison Platform
+              </h1>
+
+              <p className="text-white/60 text-lg leading-relaxed mb-10 max-w-lg text-pretty">
+                We analyse, audit, and compare Registered Training Organisations across every state — protecting consumers and driving transparency through rigorous, editorially independent research.
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="#courses"
+                  className="inline-flex items-center gap-2 bg-secondary text-primary font-bold px-7 py-3.5 rounded text-sm hover:bg-secondary/90 transition-colors"
+                >
+                  Compare RTOs Now
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="https://cpp41419.com.au/about"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-white/18 text-white/75 font-semibold px-7 py-3.5 rounded text-sm hover:bg-white/8 hover:text-white transition-colors"
+                >
+                  About the Platform
+                </a>
               </div>
-            ))}
+
+              {/* Independence badge */}
+              <div className="mt-8 flex items-center gap-3">
+                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-white/6 border border-white/10 shrink-0">
+                  <ShieldCheck className="w-4 h-4 text-secondary" />
+                </div>
+                <p className="text-white/40 text-xs leading-snug">
+                  Not an RTO. Not affiliated with any training provider.{" "}
+                  <a
+                    href="https://cpp41419.com.au/about"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-secondary transition-colors"
+                  >
+                    Learn more about our independence.
+                  </a>
+                </p>
+              </div>
+            </div>
+
+            {/* Right: stat grid */}
+            <div className="grid grid-cols-2 gap-3">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="bg-white/4 border border-white/10 rounded-xl p-6 flex flex-col gap-2 hover:bg-white/6 hover:border-secondary/25 transition-all duration-200"
+                >
+                  <span className="text-4xl font-bold text-secondary leading-none">{stat.value}</span>
+                  <span className="text-white/55 text-sm leading-tight">{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Feature strip */}
-      <div className="relative z-10 border-t border-white/10 bg-black/30 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Feature strip — bottom of hero */}
+      <div className="relative z-10 border-t border-white/10 bg-black/25 backdrop-blur-sm mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-            {[
-              {
-                icon: <Eye className="w-5 h-5 text-secondary" />,
-                title: "Price Transparency",
-                desc: "We surface hidden fees and true costs across providers",
-              },
-              {
-                icon: <ShieldCheck className="w-5 h-5 text-secondary" />,
-                title: "Compliance Intelligence",
-                desc: "ASQA regulatory signals tracked in real time",
-              },
-              {
-                icon: <TrendingUp className="w-5 h-5 text-secondary" />,
-                title: "Market Analysis",
-                desc: "Live market-mean pricing and risk profiling per course",
-              },
-            ].map((feat) => (
-              <div key={feat.title} className="flex items-start gap-4 px-6 py-5">
-                <div className="mt-0.5 shrink-0">{feat.icon}</div>
+            {features.map((feat) => (
+              <div key={feat.title} className="flex items-start gap-3.5 px-6 py-5">
+                <div className="w-8 h-8 rounded bg-white/6 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  {feat.icon}
+                </div>
                 <div>
-                  <div className="text-white font-semibold text-sm">{feat.title}</div>
-                  <div className="text-white/55 text-sm leading-relaxed mt-0.5">{feat.desc}</div>
+                  <div className="text-white text-sm font-semibold">{feat.title}</div>
+                  <div className="text-white/45 text-xs leading-relaxed mt-0.5">{feat.desc}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <a
+        href="#about"
+        className="absolute bottom-[88px] right-6 sm:right-10 hidden md:flex items-center justify-center w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-colors"
+        aria-label="Scroll down"
+      >
+        <ChevronDown className="w-4 h-4 text-white/50" />
+      </a>
     </section>
   )
 }
