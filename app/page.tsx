@@ -27,19 +27,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Home() {
-  const breadcrumbs = [
-    { name: "Home", url: "https://edtech-fintech-platform.com" },
-    { name: "Courses", url: "https://edtech-fintech-platform.com" },
-  ]
+const breadcrumbs = [
+  { name: "Home", url: "https://edtech-fintech-platform.com" },
+  { name: "Courses", url: "https://edtech-fintech-platform.com" },
+]
 
+const breadcrumbScript = renderSchemaScript(generateBreadcrumbSchema(breadcrumbs))
+
+export default function Home() {
   return (
     <>
       {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{
-          __html: renderSchemaScript(generateBreadcrumbSchema(breadcrumbs)),
+          __html: breadcrumbScript,
         }}
       />
 

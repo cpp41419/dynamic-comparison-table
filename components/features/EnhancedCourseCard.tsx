@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { TrendingUp, TrendingDown, Minus, Checkbox } from "lucide-react"
+import { TrendingUp, TrendingDown, Minus, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FinTechBadge, type FinTechFeature } from "@/components/features/FinTechBadge"
@@ -72,11 +72,17 @@ export function EnhancedCourseCard({
             }`}
             aria-label={`${isSelected ? "Deselect" : "Select"} ${course.code}`}
           >
-            <Checkbox
-              checked={isSelected}
-              className="h-5 w-5"
-              aria-hidden="true"
-            />
+            <div
+              className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                isSelected
+                  ? "border-primary bg-primary"
+                  : "border-gray-400 bg-white"
+              }`}
+            >
+              {isSelected && (
+                <Check className="h-3 w-3 text-white" aria-hidden="true" />
+              )}
+            </div>
           </button>
         </div>
       )}
