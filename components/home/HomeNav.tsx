@@ -35,9 +35,11 @@ export default function HomeNav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="CPP41419 Comparison Platform home">
+          <Link href="/" className="flex items-center gap-3 group" aria-label="VetIntel Comparison Platform home">
             <div className="flex flex-col leading-none">
-              <span className="text-secondary font-bold text-lg tracking-tight font-mono">CPP41419</span>
+              <span className="text-secondary font-bold text-xl tracking-tight">
+                Vet<span className="text-white">Intel</span>
+              </span>
               <span className="text-white/35 text-[9px] font-semibold uppercase tracking-[0.2em]">
                 Comparison Platform
               </span>
