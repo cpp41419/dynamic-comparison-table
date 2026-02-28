@@ -7,6 +7,10 @@
     text-wrap: balance;
   }
 
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
   .glass {
     @apply bg-white/70 backdrop-blur-md border border-white/20;
   }
@@ -16,12 +20,20 @@
   }
 
   .text-glow {
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    text-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
   }
 
   .marker-highlight {
-    background: linear-gradient(120deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.1) 100%);
+    background: linear-gradient(120deg, rgba(201, 162, 39, 0.4) 0%, rgba(201, 162, 39, 0.1) 100%);
     @apply px-1 rounded-sm;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
